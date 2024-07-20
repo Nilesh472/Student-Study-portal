@@ -1,0 +1,79 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}QuizApp | Login{% endblock %}
+
+{% block content %}
+<style>
+    body {
+          margin: 0;
+          font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #212529;
+          text-align: left;
+          background-color: darkcyan;
+        }
+        *, ::after, ::before {
+          box-sizing: border-box;
+        }
+</style>
+
+<div class='py-4 mt-auto' style="background-color: darkcyan;">
+    <div class='container px-4'>
+        <div class='d-flex justify-content-center'>
+            <h3>Login</h3>
+        </div>
+
+        {% if message %}
+        <div>{{ message }}</div>
+        {% endif %}
+
+        <div class='row'>
+            <div class='col-lg-6 offset-lg-3'>
+                <div class='card bg-white mb-3'>
+                    <div class='card-body'>
+
+                        <div class='form-group'>
+
+                            <form action="{% url 'login' %}" method='post'>
+                                {% csrf_token %}
+                                <div class='form-group'>
+                                    <label for='inputUsername' class='form-label mt-4'>
+                                        Username
+                                    </label>
+                                    <input type='text' name='username' class='form-control' id='inputUsername'
+                                        placeholder='Enter username' autofocus>
+                                </div>
+
+                                <div class='form-group'>
+                                    <label for='inputPassword1' class='form-label mt-4'>
+                                        Password
+                                    </label>
+                                    <input type='password' name='password' class='form-control' id='inputPassword1'
+                                        placeholder='Enter password'>
+                                </div>
+
+                                <div class='form-group mt-4'>
+                                    <button type='submit' class='btn btn-primary'>
+                                        Login
+                                    </button>
+                                </div>
+                            </form>
+
+                            <div class='mt-2'>
+                                Don't have an account? <a href="{% url 'register' %}" type='button'
+                                    class='btn btn-link'>
+                                    Register here
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

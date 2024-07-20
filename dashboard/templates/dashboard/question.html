@@ -1,0 +1,110 @@
+{% extends 'dashboard/questionbase.html' %}
+
+{% block content %}
+<style>
+    body {
+          margin: 0;
+          font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #212529;
+          text-align: left;
+          background-color: darkcyan;
+        }
+        *, ::after, ::before {
+          box-sizing: border-box;
+        }
+</style>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-10 col-lg-10">
+            <div align="right " id="displaytimer" style="color:gold;"><b>Timer: 0 seconds</b></div>
+            <div class="border">
+
+                <div class="question bg-white p-3 border-bottom">
+                    <div class="d-flex flex-row justify-content-between align-items-center mcq">
+                        <h4>MCQ Quiz</h4><span>Total Questions : 10</span>
+                        <span>Total Marks : 10</span>
+                    </div>
+                </div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% for question in questions %}
+                    <div class="question bg-white p-3 border-bottom">
+                        <div class="d-flex flex-row align-items-center question-title">
+                            <h3 class="text-danger">Q.</h3>
+                            <h5 class="mt-1 ml-2">{{question.questionText}}</h5>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-content-between row">
+                            <div class="col">
+                                <div class="ans ml-2">
+                                    <label class="radio"> <input type="radio" name="{{question.questionText}}"
+                                            value="{{question.option1}}">
+                                        <span>{{question.option1}}</span>
+                                    </label>
+                                </div>
+                                <div class="ans ml-2">
+                                    <label class="radio"> <input type="radio" name="{{question.questionText}}"
+                                            value="{{question.option3}}">
+                                        <span>{{question.option3}}</span>
+                                    </label>
+                                </div>
+                            </div>
+
+
+                            <div class="col">
+                                <div class="ans ml-2">
+                                    <label class="radio"> <input type="radio" name="{{question.questionText}}"
+                                            value="{{question.option2}}">
+                                        <span>{{question.option2}}</span>
+                                    </label>
+                                </div>
+
+                                <div class="ans ml-2">
+                                    <label class="radio"> <input type="radio" name="{{question.questionText}}"
+                                            value="{{question.option4}}">
+                                        <span>{{question.option4}}</span>
+                                    </label>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <input id='timer' type='hidden' name="timer" value="">
+                    {% empty%}
+                    <h1>No Data Yet.</h1>
+                    {% endfor %}
+                    <div class="container text-center">
+                        <button class="btn  btn-danger" type="reset">
+                            Reset</button>
+                        <button class="btn  btn-success" type="submit">Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% block script %}
+<script>
+    console.log('hello world')
+    const timer = document.getElementById('displaytimer')
+    console.log(timer.textContent)
+    const inputtag = document.getElementById('timer')
+
+    t = 0
+    setInterval(() => {
+        t += 1
+        timer.innerHTML = "<b>Timer: " + t + " seconds</b>"
+        inputtag.value = t
+    }, 1000);
+
+</script>
+{% endblock script %}
+
+{% endblock content %}
